@@ -8,10 +8,6 @@
 ## Organization
 [Machine Learning For Science (ML4SCI)](https://ml4sci.org/)
 
-<p align="center">
-  <img src="https://github.com/LazaroR-u/EQNN/assets/80428982/7b7198cf-0874-43d5-95b3-626a98449992" alt="image">
-</p>
-
 ## Contributor
 [Lazaro Diaz](https://www.linkedin.com/in/lazaro-raul-diaz-lievano/)
 
