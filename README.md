@@ -1,6 +1,24 @@
 # Equivariant Quantum Neural Networks for High Energy Physics Analysis at the LHC
 
+<p align="center">
+  <img src="https://github.com/LazaroR-u/EQNN/assets/80428982/a2eff6a4-95a6-41a5-9322-fc419d363871" alt="image">
+</p>
+
 ![image](https://github.com/LazaroR-u/EQNN/assets/80428982/a2eff6a4-95a6-41a5-9322-fc419d363871)
+
+
+
+## Organization
+[Machine Learning For Science (ML4SCI)](https://ml4sci.org/)
+
+## Contributor
+[Lazaro Diaz](https://www.linkedin.com/in/lazaro-raul-diaz-lievano/)
+
+## Mentors
+- [KC Kong](https://physics.ku.edu/people/kong-kyoungchul)
+- [Konstantin Matchev](https://www.phys.ufl.edu/~matchev/)
+- [Katia Matcheva](https://www.phys.ufl.edu/wp/index.php/people/faculty/katia-matcheva/)
+- [Sergei Gleyzer](http://sergeigleyzer.com/)
 
 ## Introduction
 
