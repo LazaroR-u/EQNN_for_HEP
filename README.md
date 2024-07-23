@@ -18,7 +18,7 @@
 - [Sergei Gleyzer](http://sergeigleyzer.com/)
 
 
-## Blog post with a detailed description of the Project
+## Project blog post 
 [Equivariant Quantum Neural Networks for High Energy Physics Analysis at the LHC. Mid-Evaluation Report.](https://medium.com/@214lievano/equivariant-quantum-neural-networks-for-high-energy-physics-analysis-at-the-lhc-59b55ed3d43e)
 
 
