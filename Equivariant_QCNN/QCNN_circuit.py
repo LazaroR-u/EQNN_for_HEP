@@ -1,3 +1,4 @@
+# In this module we define the EQCNN and QCNN architecture
 import pennylane as qml
 import unitary
 import embedding
@@ -91,6 +92,7 @@ def reflection_QCNN_structure_without_pooling(U, params, U_params=6):
     param1 = params[0:U_params] # conv1 U2 - 6 params
     param2 = params[U_params: 2 * U_params] #conv2 U2 - 6 params
     param3 = params[2 * U_params: 3 * U_params] #conv3 U2 - 6 params
+
     # 6 params
     conv_layer_equiv_U2(U, param1)
     conv_layer_equiv_U2(U, param2)

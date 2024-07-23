@@ -1,7 +1,6 @@
 import data
 import Training
 import QCNN_circuit
-import Hierarchical_circuit
 import numpy as np
 
 def accuracy_test(predictions, labels, cost_fn, binary = True):
@@ -48,15 +47,13 @@ def round_predictions_f(predictions, cost_fn):
     return round_predictions
 
 def Encoding_to_Embedding(Encoding):
-    # Amplitude Embedding / Angle Embedding
     if Encoding == 'img16x16x1':
         Embedding = "Equivariant-Amplitude"
     elif Encoding == 'resize256':
         Embedding = 'Amplitude'
     elif Encoding == 'pca8':
         Embedding = 'Angle'
-    elif Encoding == 'autoencoder8':
-        Embedding = 'Angle'
+    
     return Embedding
 
 
@@ -79,11 +76,8 @@ def Benchmarking(dataset, classes, Unitaries, U_num_params, Encodings, circuit, 
             print("Loss History for " + circuit + " circuits, " + U + " " + Encoding + " with " + cost_fn)
             loss_history, trained_params = Training.circuit_training(X_train, Y_train, U, U_params, Embedding, circuit, cost_fn)
 
-            if circuit == 'QCNN':
-                predictions = [QCNN_circuit.QCNN(x, trained_params, U, U_params, Embedding, cost_fn) for x in X_test]
-            elif circuit == 'Hierarchical':
-                predictions = [Hierarchical_circuit.Hierarchical_classifier(x, trained_params, U, U_params, Embedding, cost_fn) for x in X_test]
-
+            predictions = [QCNN_circuit.QCNN(x, trained_params, U, U_params, Embedding, cost_fn) for x in X_test]
+          
             accuracy = accuracy_test(predictions, Y_test, cost_fn, binary)
             print("Accuracy for " + U + " " + Encoding + " :" + str(accuracy))
 

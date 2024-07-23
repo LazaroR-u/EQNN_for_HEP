@@ -1,6 +1,5 @@
 # Implementation of Quantum circuit training procedure
 import QCNN_circuit
-import Hierarchical_circuit
 import pennylane as qml
 from pennylane import numpy as np
 import autograd.numpy as anp
@@ -22,8 +21,6 @@ def cross_entropy(labels, predictions):
 def cost(params, X, Y, U, U_params, embedding_type, circuit, cost_fn):
     if circuit == 'QCNN':
         predictions = [QCNN_circuit.QCNN(x, params, U, U_params, embedding_type, cost_fn=cost_fn) for x in X]
-    elif circuit == 'Hierarchical':
-        predictions = [Hierarchical_circuit.Hierarchical_classifier(x, params, U, U_params, embedding_type, cost_fn=cost_fn) for x in X]
 
     if cost_fn == 'mse':
         loss = square_loss(Y, predictions)
@@ -32,24 +29,25 @@ def cost(params, X, Y, U, U_params, embedding_type, circuit, cost_fn):
     return loss
 
 # Circuit training parameters
-steps = 10
+steps = 200
 learning_rate = 0.01
-batch_size = 25
+batch_size = 64
 
 
-def circuit_training(X_train, Y_train, U, U_params, embedding_type, circuit, cost_fn, steps = 10, learning_rate = 0.01, batch_size = 25):
+def circuit_training(X_train, Y_train, U, U_params, embedding_type, circuit, cost_fn, steps = 50, learning_rate = 0.05, batch_size = 128):
     if circuit == 'QCNN':
         if U == 'U_SU4_no_pooling' or U == 'U_SU4_1D' or U == 'U_9_1D' or U == "U2_equiv":
-            total_params = U_params * 3 +3
+            total_params = U_params * 4 +3
         elif U == "U4_equiv":
             total_params =  5+6+5+6+ U_params + 5 +3
         else:
             total_params = U_params * 3 + 2 * 3
-    elif circuit == 'Hierarchical':
-        total_params = U_params * 7
+
 
     params = np.random.randn(total_params, requires_grad=True)
     opt = qml.NesterovMomentumOptimizer(stepsize=learning_rate)
+    #opt = qml.AdamOptimizer(stepsize=learning_rate)
+
     loss_history = []
 
     for it in range(steps):

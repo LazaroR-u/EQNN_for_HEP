@@ -2,9 +2,7 @@
 # and Hierarchical Quantum Classifier circuit.
 import pennylane as qml
 from pennylane.templates.embeddings import AmplitudeEmbedding, AngleEmbedding
-#from pennylane.templates.state_preparations import MottonenStatePreparation
 import numpy as np
-#from Angular_hybrid import Angular_Hybrid_4, Angular_Hybrid_2
 
 def equivariant_amplitude_encoding(img: np.ndarray) -> None:
     # n = 8
@@ -25,7 +23,6 @@ def equivariant_amplitude_encoding(img: np.ndarray) -> None:
         for j in range(2**n): # iterate in the height size (16 pixels)
             #features = features.at[2**n * i + j].set(
             #    np.sin(np.pi / 2 * (2 * img[i, j] - 1))
-            #)
             features[2 ** n * i + j] = np.sin(np.pi / 2 * (2 * img[i, j] - 1))
     # Normalize the feature vector
     features = features / np.sqrt(np.sum(features**2))
@@ -54,7 +51,7 @@ def data_embedding(X, embedding_type='Amplitude'):
     """
 
     if embedding_type == 'Amplitude': 
-        #X = X.reshape(X.shape[0]*X.shape[1])
+        X = X.reshape(-1)
         AmplitudeEmbedding(X, wires=range(8), normalize=True)
 
     # it works if X is an array of dimension (16,16,1)

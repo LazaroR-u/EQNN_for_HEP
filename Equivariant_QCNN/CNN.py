@@ -94,8 +94,8 @@ steps = 200
 dataset = 'fashion_mnist'
 classes = [0,1]
 binary = False
-Encodings = ['pca8', 'autoencoder8', 'pca16-compact', 'autoencoder16-compact']
-Encodings_size = [8, 8, 16, 16]
+Encodings = ['pca8', 'autoencoder8']
+Encodings_size = [8, 8]
 
 for i in range(5):
     Benchmarking_CNN(dataset=dataset, classes=classes, Encodings=Encodings, Encodings_size=Encodings_size,
