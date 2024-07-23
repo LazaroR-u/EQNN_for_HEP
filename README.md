@@ -21,6 +21,9 @@
 ## Project blog post 
 [Equivariant Quantum Neural Networks for High Energy Physics Analysis at the LHC. Mid-Evaluation Report.](https://medium.com/@214lievano/equivariant-quantum-neural-networks-for-high-energy-physics-analysis-at-the-lhc-59b55ed3d43e)
 
+## Summary
+
+So far, we have successfully implemented an equivariant quantum convolutional neural network (EQCNN) that maintains invariance under the p4m symmetry group, which includes rotations of 90° and reflections over the X and Y axes. The model has demonstrated strong performance on both benchmark datasets: MNIST and Fashion MNIST.
 
 ## Introduction
 
