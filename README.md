@@ -79,8 +79,8 @@ Here you can find Jupyter notebooks that run on Google Colab:
 - **Quark_gluon_study_CNN_testing.ipynb** (to get the dataset, send me an email)
 
 Additional:
-- **requirements.txt**: contains a list of all the required packages to run all the code.
-
+- **requirements.txt**: Lists all the necessary packages to run the code.
+- **GSOC_2024_EQNN_midterm.pdf**: Contains a presentation of the project's progress up to the midterm evaluation of the Google Summer of Code 2024 program.
 
 
 ## Installation
