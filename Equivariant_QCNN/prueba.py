@@ -1,9 +1,9 @@
-from QCNN_circuit import QCNN
-import data
-import embedding
+from models.QCNN_circuit import QCNN
+import data.data as data
+import models.utils.embedding as embedding
 import matplotlib.pyplot as plt
 import numpy as np
-from Training import circuit_training
+from training.Training import circuit_training
 
 """
 Here are possible combinations of benchmarking user could try.
@@ -27,15 +27,16 @@ total_params = U_params * 3 + 2 * 3
 params = np.random.random(total_params)
 
 U = "U_5"
-feature_reduction = "pca8"
+feature_reduction = "img16x16x1"
 circuit = "QCNN"
 cost_fn = "mse"
 binary = True
+dataset = "mnist"
 
-X_train, X_test, Y_train, Y_test = data.data_load_and_process( "mnist", [0,1], feature_reduction, binary)
 
+X_train, X_test, Y_train, Y_test = data.data_load_and_process( dataset, [0,1], feature_reduction, binary)
 
-#print(Y_test)
+print(Y_test)
 
 
 #data and transformed data
@@ -69,7 +70,7 @@ print(f" Measurement for Original Image: {result1}")
 #print(f" Measurement for Image Rotated 90 Degrees: {result4}")
 
 
-circuit_training(X_train, Y_train, U, U_params, feature_reduction, circuit, cost_fn, steps = 10)
+#circuit_training(X_train, Y_train, U, U_params, feature_reduction, circuit, cost_fn, steps = 10)
 
 
 
