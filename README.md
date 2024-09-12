@@ -1,8 +1,4 @@
-# Equivariant Quantum Neural Networks for High Energy Physics Analysis at the LHC
-
-<p align="center">
-  <img src="https://github.com/LazaroR-u/EQNN/assets/80428982/63d3cc7b-f42f-4989-b203-4cce5eaff822" alt="image">
-</p>
+# Equivariant Quantum Neural Networks
 
 
 ## Summary
@@ -13,10 +9,7 @@ So far, we have successfully implemented an equivariant quantum convolutional ne
 
 The investigation of symmetries has long been a cornerstone in the analysis of physical systems. As formalized by Noether’s theorem, conserved quantities are inherently linked to the symmetries present within the system. In the field of high-energy physics, the study of symmetries has played a key role in shaping the Standard Model, which describes three of the four fundamental forces in nature. 
 
-New studies have demonstrated the effectiveness of Equivariant Quantum Neural Networks (EQNNs) in utilizing symmetries in quantum machine learning (QML). The project focuses on exploring various symmetries present in image datasets, such as reflections, rotations, and translations. The goal is to develop a comprehensive framework for building Equivariant Quantum Convolutional Neural Networks (EQCNNs) specifically designed for image symmetries as p4m, which consists of rotations by 90° and reflections along the X and Y axes. By establishing this framework, we aim to simplify the creation and use of equivariant neural networks, making it easier to apply them to address challenges in high-energy physics.
-
-Specifically, this work aims to use the implemented EQCNN to classify quark-versus-gluon-initiated jet events from the dataset constructed by [Andrews et al.](https://www.sciencedirect.com/science/article/pii/S0168900220307002?via%3Dihub) and [electron-photon events](https://indico.cern.ch/event/567550/papers/2629451/files/7515-end-end-event_v4.pdf).
-
+New studies have demonstrated the effectiveness of Equivariant Quantum Neural Networks (EQNNs) in utilizing symmetries in quantum machine learning (QML). The project focuses on exploring various symmetries present in image datasets, such as reflections, rotations, and translations. The goal is to develop a comprehensive framework for building Equivariant Quantum Convolutional Neural Networks (EQCNNs) specifically designed for image symmetries as roto-rotation symmetry, which consists of rotations by 90° and reflections along the X and Y axes. By establishing this framework, we aim to simplify the creation and use of equivariant neural networks, making it easier to apply them to address challenges in high-energy physics.
 
 
 ## Datasets
@@ -24,12 +17,6 @@ Specifically, this work aims to use the implemented EQCNN to classify quark-vers
 - **MNIST**: A large database of handwritten digits commonly used for training and testing various image processing systems. It consists of 60,000 training images and 10,000 testing images, each of size 28x28 pixels in grayscale.
 
 - **Fashion MNIST**: Similar to the MNIST dataset but contains images of clothing items such as shirts, trousers, and shoes. It also consists of 60,000 training images and 10,000 testing images, each of size 28x28 pixels in grayscale.
-
-- **Quark-Gluon**: We use simulated 2012 CMS Open Data. This dataset is used in high-energy physics to distinguish between quark-initiated and gluon-initiated particle jets. The images have three channels corresponding to the Tracker, the Electromagnetic Calorimeter (ECAL), and the Hadronic Calorimeter (HCAL).
-
-- **Electron-Photon**: Consists of the 2012 CMS Simulated Open Data for the decay of the Standard Model (SM) Higgs boson to two photons versus its leading backgrounds. This dataset is used to classify electron-initiated and photon-initiated events.
-
-
 
 ## Structure
 
@@ -64,18 +51,7 @@ Here you can find Jupyter notebooks that run on Google Colab:
 
 Additional:
 - **requirements.txt**: Lists all the necessary packages to run the code.
-- **GSOC_2024_EQNN_midterm.pdf**: Contains a presentation of the project's progress up to the midterm evaluation of the Google Summer of Code 2024 program.
 
-
-## Installation
-
-````
-git clone https://github.com/LazaroR-u/EQNN_for_HEP.git
-cd Equivariant_QCNN
-python3 -m venv env
-source env/bin/activate
-pip install -r ../requirements.txt
-````
 
 
 
