@@ -1,4 +1,6 @@
 # This module contains the set of unitary ansatze that will be used to benchmark the performances of Quantum Convolutional Neural Network (QCNN) in QCNN.ipynb module
+
+
 import pennylane as qml
 import numpy as np
 # Unitary Ansatze for Convolutional Layer

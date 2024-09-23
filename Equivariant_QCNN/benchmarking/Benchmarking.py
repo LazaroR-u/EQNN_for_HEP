@@ -3,9 +3,9 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import data.data as data
-import training.Training as Training
-import models.QCNN_circuit as QCNN_circuit
+import Equivariant_QCNN.data.data as data
+import Equivariant_QCNN.training.Training as Training
+import Equivariant_QCNN.models.QCNN_circuit as QCNN_circuit
 import numpy as np
 
 def accuracy_test(predictions, labels, cost_fn, binary = True):

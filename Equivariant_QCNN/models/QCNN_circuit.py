@@ -1,7 +1,7 @@
 # In this module we define the EQCNN and QCNN architecture
 import pennylane as qml
-import models.utils.unitary as unitary
-import models.utils.embedding as embedding
+import Equivariant_QCNN.models.utils.unitary as unitary
+import Equivariant_QCNN.models.utils.embedding as embedding
 
 def conv_layer_equiv_U2(U, params): # apply a layer of U2 to all the system
     for i in range(int(8 / 2)):
@@ -18,9 +18,7 @@ def conv_layer_equiv_U2_pair(U, params):
 def conv_layer_equiv_U2_single(U, params):
     U(params, [0, 4])
 
-
 #---------
-
 def conv_layer_equiv_U4(U, params):
     U(params, [0,1,2,3])
     U(params, [4,5,6,7])
@@ -61,7 +59,7 @@ def pooling_layer3(V, params):
 
 ## ---- equiv
 
-def p4m_QCNN_structure(U, params, U_params = 6):
+def p4m_QCNN_structure(U, params, U_params = 6, layers=3):
     param1 = params[0:U_params] #conv1 U2 6
     param2 = params[U_params: U_params+5] # pooling1 5 
     param3 = params[U_params+5:  U_params+5+6] # conv2 pair U2 6 
@@ -88,37 +86,23 @@ def p4m_QCNN_structure(U, params, U_params = 6):
     qml.Hadamard(4)
 
 
-def reflection_QCNN_structure_without_pooling(U, params, U_params=6):
-    param1 = params[0:U_params] # conv1 U2 - 6 params
-    param2 = params[U_params: 2 * U_params] #conv2 U2 - 6 params
-    param3 = params[2 * U_params: 3 * U_params] #conv3 U2 - 6 params
-    param4 = params[3 * U_params: 4 * U_params]
-    param5 = params[4 * U_params: 5 * U_params]
+def reflection_QCNN_structure_without_pooling(U, params, U_params, layers):
+    param_layers = [params[i * U_params:(i + 1) * U_params] for i in range(layers)]
 
-    # 6 params
-    conv_layer_equiv_U2(U, param1)
-    conv_layer_equiv_U2(U, param2)
-    conv_layer_equiv_U2(U, param3)
-    conv_layer_equiv_U2(U, param4)
-    conv_layer_equiv_U2(U, param5)
+    for i in range(layers):
+        conv_layer_equiv_U2(U, param_layers[i])
 
 
 ## ------ normal 
-def QCNN_structure(U, params, U_params):
-    param1 = params[0:U_params]
-    param2 = params[U_params: 2 * U_params]
-    param3 = params[2 * U_params: 3 * U_params]
-    param4 = params[3 * U_params: 3 * U_params + 2]
-    param5 = params[3 * U_params + 2: 3 * U_params + 4]
-    param6 = params[3 * U_params + 4: 3 * U_params + 6]
+def QCNN_structure(U, params, U_params, n_qubits, layers):
+    param_layers = [params[i * U_params:(i + 1) * U_params] for i in range(layers)]
+    pooling_params = params[U_params * layers: U_params * layers + layers * 2] 
+    
+    for i in range(layers):
+        conv_layer1(U, param_layers[i], n_qubits)
+        if i < len(pooling_params) // 2: 
+            pooling_layer1(unitary.Pooling_ansatz1, pooling_params[i * 2:(i + 1) * 2], n_qubits)
 
-    # Pooling Ansatz1 is used by default
-    conv_layer1(U, param1)
-    pooling_layer1(unitary.Pooling_ansatz1, param4)
-    conv_layer2(U, param2)
-    pooling_layer2(unitary.Pooling_ansatz1, param5)
-    conv_layer3(U, param3)
-    pooling_layer3(unitary.Pooling_ansatz1, param6)
 
 
 def QCNN_structure_without_pooling(U, params, U_params):
@@ -145,38 +129,36 @@ def QCNN_1D_circuit(U, params, U_params):
     U(param3, wires=[3,4])
 
 
-
 dev = qml.device('default.qubit', wires = 8)
 @qml.qnode(dev)
-def QCNN(X, params, U, U_params, embedding_type='Equivariant-Amplitude', cost_fn='cross_entropy'):
-
+def QCNN(X, params, U, U_params, embedding_type='Equivariant-Amplitude', cost_fn='cross_entropy', layers = 3):
 
     # Data Embedding
     embedding.data_embedding(X, embedding_type=embedding_type)
 
     # Quantum Convolutional Neural Network
     if U == 'U_TTN':
-        QCNN_structure(unitary.U_TTN, params, U_params)
+        QCNN_structure(unitary.U_TTN, params, U_params, layers)
     elif U == "U2_equiv":
-        reflection_QCNN_structure_without_pooling(unitary.U2_equiv, params, U_params)
+        reflection_QCNN_structure_without_pooling(unitary.U2_equiv, params, U_params, layers)
     elif U == "U4_equiv":
-        p4m_QCNN_structure(unitary.U4_equiv, params, U_params)
+        p4m_QCNN_structure(unitary.U4_equiv, params, U_params, layers)
     elif U == 'U_5':
-        QCNN_structure(unitary.U_5, params, U_params)
+        QCNN_structure(unitary.U_5, params, U_params, layers)
     elif U == 'U_6':
-        QCNN_structure(unitary.U_6, params, U_params)
+        QCNN_structure(unitary.U_6, params, U_params, layers)
     elif U == 'U_9':
         QCNN_structure(unitary.U_9, params, U_params)
     elif U == 'U_13':
-        QCNN_structure(unitary.U_13, params, U_params)
+        QCNN_structure(unitary.U_13, params, U_params, layers)
     elif U == 'U_14':
-        QCNN_structure(unitary.U_14, params, U_params)
+        QCNN_structure(unitary.U_14, params, U_params, layers)
     elif U == 'U_15':
-        QCNN_structure(unitary.U_15, params, U_params)
+        QCNN_structure(unitary.U_15, params, U_params, layers)
     elif U == 'U_SO4':
-        QCNN_structure(unitary.U_SO4, params, U_params)
+        QCNN_structure(unitary.U_SO4, params, U_params, layers)
     elif U == 'U_SU4':
-        QCNN_structure(unitary.U_SU4, params, U_params)
+        QCNN_structure(unitary.U_SU4, params, U_params, layers)
     elif U == 'U_SU4_no_pooling':
         QCNN_structure_without_pooling(unitary.U_SU4, params, U_params)
     elif U == 'U_SU4_1D':
@@ -195,6 +177,5 @@ def QCNN(X, params, U, U_params, embedding_type='Equivariant-Amplitude', cost_fn
             result = qml.expval(qml.PauliZ(0) @ qml.PauliZ(1) @ qml.PauliZ(2) @ qml.PauliZ(3) @ qml.PauliZ(4) @ qml.PauliZ(5) @ qml.PauliZ(6) @ qml.PauliZ(7))
         else:
             result = qml.expval(qml.PauliZ(4))
-
 
     return result

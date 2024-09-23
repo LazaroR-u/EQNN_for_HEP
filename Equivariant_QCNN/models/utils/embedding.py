@@ -1,3 +1,4 @@
+
 # This is an implementation of data_embedding function used for 8 qubits Quantum Convolutional Neural Network (QCNN)
 # and Hierarchical Quantum Classifier circuit.
 import pennylane as qml
